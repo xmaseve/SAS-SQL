@@ -1,10 +1,10 @@
 
 data books;
 	input bookid    : 1.
-              title     & $28.
-              published : mmddyy10.
-              author    & $15.
-              stock     : 1.;
+          title     & $28.
+          published : mmddyy10.
+		  author    & $15.
+          stock     : 1.;
 	format published date9.;
 datalines;
 1 Scion of Ikshvaku  06/22/2015 Amish Tripathi  2
@@ -56,7 +56,7 @@ where author='Dan Brown';
 quit;
 
 proc sql;
-select firstname, lastname, count(*) as Number 'Number of books borrowed'
+select firstname||' '|| lastname as fullname, count(*) as Number 'Number of books borrowed'
 from borrowings b join members m
 on b.memberid = m.memberid
 join books
@@ -86,7 +86,7 @@ where author in (select author
                  from (select author, sum(stock) as Total
                        from books
                        group by author) as result
-		where Total > 3);
+		 where Total > 3);
 quit;
 
 
