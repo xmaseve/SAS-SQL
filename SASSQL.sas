@@ -89,5 +89,11 @@ where author in (select author
 		 where Total > 3);
 quit;
 
+proc sql;
+select author, stock, mean(stock) as mean
+from books
+having stock > mean(stock);
+quit;
+
 
 
