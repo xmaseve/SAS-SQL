@@ -21,6 +21,12 @@ proc sql;
 quit;
 
 proc sql;
+select player, hits/atbats as avg label='Hit Rate'
+from bbstats
+where calculated avg > 0.2;
+quit;
+
+proc sql;
  select player, atbats
  from bbstats
  where upcase(Player) contains 'IA'; 
@@ -126,6 +132,44 @@ quit;
 proc sql;
 select a.name, quiz, test from a, b
 where a.name=b.name;
+quit;
+
+proc sql;
+select a.name, quiz, test
+from a inner join b
+on a.name=b.name;
+quit;
+
+proc sql;
+select a.name, quiz, test
+from a left join b
+on a.name=b.name;
+quit;
+
+proc sql;
+select a.name, quiz, test
+from a left join b
+on a.name=b.name
+where b.name is null;
+quit;
+
+proc sql;
+select *
+from a full outer join b
+on a.name=b.name;
+quit;
+
+proc sql;
+select coalesce(a.name,b.name) as name, quiz, test
+from a full join b
+on a.name=b.name;
+quit;
+
+proc sql;
+select coalesce(a.name,b.name) as name, quiz, test
+from a full join b
+on a.name=b.name
+where a.name is null or b.name is null;
 quit;
 
 data hospitnew;
